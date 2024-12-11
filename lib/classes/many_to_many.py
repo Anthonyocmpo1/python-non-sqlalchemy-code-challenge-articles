@@ -110,8 +110,8 @@ class Magazine:
 magazine1 = Magazine("Tech Monthly", "Technology")
 magazine2 = Magazine("Science Weekly", "Science")
 
-author1 = Author("Alice Smith")
-author2 = Author("Bob Johnson")
+author1 = Author("John Anthony")
+author2 = Author("Mary Jane")
 
 # Add articles
 article1 = author1.add_article(magazine1, "The Future of AI")
