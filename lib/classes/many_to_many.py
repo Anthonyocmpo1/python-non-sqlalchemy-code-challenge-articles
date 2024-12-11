@@ -41,15 +41,15 @@ class Author:
     def name(self, value):
         print("Error: Author name is immutable once set.")
 
-   
-
     def add_article(self, magazine, title):
         return Article(self, magazine, title)
+
     def articles(self):
         return [article for article in Article.all if article.author == self]
 
     def magazines(self):
         return list({article.magazine for article in self.articles()})
+
     def topic_areas(self):
         if not self.magazines():
             return None
@@ -87,13 +87,11 @@ class Magazine:
         else:
             self._category = value
 
-   
     def contributors(self):
         return list({article.author for article in self.articles()})
-    
+
     def articles(self):
         return [article for article in Article.all if article.magazine == self]
-
 
     def article_titles(self):
         titles = [article.title for article in self.articles()]
@@ -105,3 +103,37 @@ class Magazine:
             author_counts[article.author] = author_counts.get(article.author, 0) + 1
         contributors = [author for author, count in author_counts.items() if count > 2]
         return contributors if contributors else None
+
+
+# Create instances and produce output
+
+magazine1 = Magazine("Tech Monthly", "Technology")
+magazine2 = Magazine("Science Weekly", "Science")
+
+author1 = Author("Alice Smith")
+author2 = Author("Bob Johnson")
+
+# Add articles
+article1 = author1.add_article(magazine1, "The Future of AI")
+article2 = author1.add_article(magazine1, "Quantum Computing: An Overview")
+article3 = author2.add_article(magazine2, "Exploring the Depths of the Ocean")
+
+# Print articles by author
+print(f"Articles by {author1.name}:")
+for article in author1.articles():
+    print(f"- {article.title} in {article.magazine.name}")
+
+# Print articles in magazine
+print(f"\nArticles in {magazine1.name}:")
+for article in magazine1.articles():
+    print(f"- {article.title} by {article.author.name}")
+
+# Print contributing authors
+print(f"\nContributing authors in {magazine1.name}:")
+for author in magazine1.contributors():
+    print(f"- {author.name}")
+
+# Print topics
+print(f"\nTopics for {author1.name}:")
+for topic in author1.topic_areas() or []:
+    print(f"- {topic}")
